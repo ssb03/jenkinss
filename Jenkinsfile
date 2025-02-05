@@ -6,6 +6,8 @@ pipeline {
             steps {
                 echo 'Creating virtual environment and installing dependencies...'
                 sh '''
+                apt-get update
+                apt-get install sudo
                 sudo apt install python3.11-venv
                 python3 -m venv venv
                 source venv/bin/activate
