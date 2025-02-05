@@ -2,15 +2,23 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+       stage('Build') {
             steps {
                 echo 'Creating virtual environment and installing dependencies...'
+                sh '''
+                python3 -m venv venv
+                source venv/bin/activate
+                pip install -r requirements.txt
+                '''
             }
         }
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                sh 'python3 -m unittest discover -s .'
+                sh '''
+                source venv/bin/activate
+                python3 -m unittest discover -s .
+                '''
             }
         }
         stage('Deploy') {
